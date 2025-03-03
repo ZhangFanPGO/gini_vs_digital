@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 数据
+data = {
+    "Year": [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "E-commerce Contribution (%)": [1.1, 1.4, 1.95, 2.24, 2.7, 2.7, 2.7, 2.33, 3.13, 3.13],
+    "ICT Contribution (%)": [8.0, 8.5, 9.0, 9.0, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5],
+    "Cloud/AI Contribution (%)": [2.0, 2.2, 2.5, 2.7, 3.0, 3.5, 4.0, 5.0, 6.0, 8.9]
+}
+
+# 转换为 DataFrame
+df = pd.DataFrame(data)
+
+# 颜色定义
+colors = ["#1f77b4", "#ff7f0e", "#2ca02c"]  # 蓝色（电商）、橙色（ICT）、绿色（云/AI）
+
+# 绘制堆叠柱状图
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.bar(df["Year"], df["E-commerce Contribution (%)"], label="E-commerce", color=colors[0])
+ax.bar(df["Year"], df["ICT Contribution (%)"], bottom=df["E-commerce Contribution (%)"], label="ICT", color=colors[1])
+ax.bar(df["Year"], df["Cloud/AI Contribution (%)"], bottom=df["E-commerce Contribution (%)"] + df["ICT Contribution (%)"],
+       label="Cloud/AI", color=colors[2])
+
+# 图表美化
+ax.set_xlabel("Year", fontsize=12)
+ax.set_ylabel("Contribution to Digital Economy (%)", fontsize=12)
+ax.set_title("Sweden Digital Economy Contribution (2013-2022)", fontsize=14, fontweight='bold')
+ax.set_xticks(df["Year"])
+ax.legend()
+
+# 显示图表
+plt.show()
